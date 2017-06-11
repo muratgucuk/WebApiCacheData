@@ -23,9 +23,6 @@ namespace CacheData
 
             DbCacher dbCacher = new DbCacher();
             dbCacher.CacheDb();
-
-            Cacher.Cacher cacher = new Cacher.Cacher();
-            var list = cacher.Get("Nazım Hikmet");
         }
     }
 }

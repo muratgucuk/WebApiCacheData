@@ -10,110 +10,62 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CacheData.Models;
+using CacheData.Cacher;
+using CacheData.Repositories;
 
 namespace CacheData.Controllers
 {
+    [RoutePrefix("api/Authors")]
     public class AuthorsController : ApiController
     {
-        private MainDBContext db = new MainDBContext();
+        private AuthorRepository _authorRepo;
 
-        // GET: api/Authors
-        public IQueryable<Authors> GetAuthors()
+        public AuthorsController()
         {
-            return db.Authors;
+
         }
-
-        // GET: api/Authors/5
-        [ResponseType(typeof(Authors))]
-        public async Task<IHttpActionResult> GetAuthors(int id)
+        
+        [HttpGet]
+        [Route("Get")]
+        public IHttpActionResult GetAuthors(string name)
         {
-            Authors authors = await db.Authors.FindAsync(id);
-            if (authors == null)
-            {
-                return NotFound();
-            }
-
+            Authors authors = _authorRepo.Get(name);
             return Ok(authors);
         }
 
-        // PUT: api/Authors/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAuthors(int id, Authors authors)
+        [HttpPost]
+        [Route("Create")]
+        public async Task<IHttpActionResult> PostAuthors(Authors author)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != authors.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(authors).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AuthorsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            await _authorRepo.Create(author);
+            return Ok();
         }
 
-        // POST: api/Authors
-        [ResponseType(typeof(Authors))]
-        public async Task<IHttpActionResult> PostAuthors(Authors authors)
+        [HttpGet]
+        [Route("Delete")]
+        public async Task<IHttpActionResult> DeleteAuthors(string name)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Authors.Add(authors);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = authors.Id }, authors);
-        }
-
-        // DELETE: api/Authors/5
-        [ResponseType(typeof(Authors))]
-        public async Task<IHttpActionResult> DeleteAuthors(int id)
-        {
-            Authors authors = await db.Authors.FindAsync(id);
-            if (authors == null)
+            if (!_authorRepo.AuthorsExists(name))
             {
                 return NotFound();
             }
 
-            db.Authors.Remove(authors);
-            await db.SaveChangesAsync();
-
-            return Ok(authors);
+            await _authorRepo.Delete(name);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _authorRepo.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool AuthorsExists(int id)
-        {
-            return db.Authors.Count(e => e.Id == id) > 0;
         }
     }
 }
