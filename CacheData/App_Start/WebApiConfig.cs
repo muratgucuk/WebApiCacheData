@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CacheData.Cacher;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -19,6 +20,12 @@ namespace CacheData
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            DbCacher dbCacher = new DbCacher();
+            dbCacher.CacheDb();
+
+            Cacher.Cacher cacher = new Cacher.Cacher();
+            var list = cacher.Get("Nazım Hikmet");
         }
     }
 }
