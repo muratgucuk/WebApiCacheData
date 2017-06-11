@@ -8,7 +8,7 @@ using System.Web;
 
 namespace CacheData.Repositories
 {
-    public class AuthorRepository : IAuthorRepository, IDisposable
+    public class AuthorRepository : IAuthorRepository
     {
         private readonly IMainDBContext _context;
         private readonly ICacher _cacher;
@@ -44,12 +44,6 @@ namespace CacheData.Repositories
         public bool AuthorsExists(string name)
         {
             return _context.Authors.Count(f => f.Name == name) > 0;
-        }
-
-        public void Dispose()
-        {
-            this.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

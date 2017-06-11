@@ -58,14 +58,5 @@ namespace CacheData.Controllers
             await _authorRepo.Delete(name);
             return Ok();
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _authorRepo.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }
