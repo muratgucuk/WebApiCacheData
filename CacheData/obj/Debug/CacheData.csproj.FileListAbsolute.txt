@@ -62,3 +62,13 @@ C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\obj\Debug\CacheData.Migra
 C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\obj\Debug\CacheData.csproj.GenerateResource.Cache
 C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\obj\Debug\CacheData.dll
 C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\obj\Debug\CacheData.pdb
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.Unity.dll
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.Unity.xml
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\TR\Documents\GitHub\WebApiCacheData\CacheData\obj\Debug\CacheData.csprojResolveAssemblyReference.cache

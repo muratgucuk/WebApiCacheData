@@ -1,4 +1,7 @@
 ﻿using CacheData.Cacher;
+using CacheData.Dependency;
+using CacheData.Repositories;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +13,15 @@ namespace CacheData
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            var container = new UnityContainer();
+            container.RegisterType<IAuthorRepository, AuthorRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IMainDBContext, MainDBContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICacher, Cacher.Cacher>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
 
-            // Web API routes
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
