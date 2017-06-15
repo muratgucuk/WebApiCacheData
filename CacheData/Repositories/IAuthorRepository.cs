@@ -8,5 +8,6 @@ namespace CacheData.Repositories
         Authors Get(string name);
         Task Create(Authors author);
         Task Delete(string name);
+        bool AuthorsExists(string name);
     }
 }

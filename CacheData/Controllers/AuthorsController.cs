@@ -18,18 +18,18 @@ namespace CacheData.Controllers
     [RoutePrefix("api/Authors")]
     public class AuthorsController : ApiController
     {
-        private AuthorRepository _authorRepo;
+        private IAuthorRepository _authorRepository;
 
-        public AuthorsController()
+        public AuthorsController(IAuthorRepository authorRepository)
         {
-
+            _authorRepository = authorRepository;
         }
-        
+
         [HttpGet]
         [Route("Get")]
         public IHttpActionResult GetAuthors(string name)
         {
-            Authors authors = _authorRepo.Get(name);
+            Authors authors = _authorRepository.Get(name);
             return Ok(authors);
         }
 
@@ -42,7 +42,7 @@ namespace CacheData.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _authorRepo.Create(author);
+            await _authorRepository.Create(author);
             return Ok();
         }
 
@@ -50,12 +50,12 @@ namespace CacheData.Controllers
         [Route("Delete")]
         public async Task<IHttpActionResult> DeleteAuthors(string name)
         {
-            if (!_authorRepo.AuthorsExists(name))
+            if (!_authorRepository.AuthorsExists(name))
             {
                 return NotFound();
             }
 
-            await _authorRepo.Delete(name);
+            await _authorRepository.Delete(name);
             return Ok();
         }
     }
